@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Task List</h1>
+    <hr>
+    {% for task in tasks %}
+        {% if task.complete == True %}
+
+            <p>{{task.title}}</p>
+        
+        {% else %}
+            {{task}}
+
+        {% endif %}
+        
+
+        <a href="{% url 'update_task' pk=task.id %}">Edit</a>
+        <a href="{% url 'delete_task' pk=task.id %}">Delete</a>
+    {% endfor %}
+    <hr>
+    <a href="{% url 'create_task' %}">
+        <h3>Add</h3>
+    </a>
+   
+</body>
+</html>
