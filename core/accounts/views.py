@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import login
+from django.contrib.auth import login , logout
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -35,3 +36,8 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:
             return redirect("task_list")
         return super(RegisterPage, self).get(*args, **kwargs)
+    
+@login_required    
+def logout_views(request):
+    logout(request)
+    return redirect('/accounts/login')
