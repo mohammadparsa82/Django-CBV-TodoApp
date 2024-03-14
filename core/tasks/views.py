@@ -45,3 +45,13 @@ class DeleteTask(DeleteView, LoginRequiredMixin):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+    
+class TaskComplete(LoginRequiredMixin, View):
+    model = Task
+    success_url = reverse_lazy("task_list")
+
+    def get(self, request, *args, **kwargs):
+        object = Task.objects.get(id=kwargs.get("pk"))
+        object.complete = True
+        object.save()
+        return redirect(self.success_url)
