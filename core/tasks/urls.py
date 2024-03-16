@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path , include
 from tasks.views import *
 
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path("update/<int:pk>/", UpdateTask.as_view(), name="update_task"),
     path("delete/<int:pk>/", DeleteTask.as_view(), name="delete_task"),
     path("complete/<int:pk>/", TaskComplete.as_view(), name="complete_task"),
+    path('api/v1/',include('tasks.api.v1.urls')),
 ]
